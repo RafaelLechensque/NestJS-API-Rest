@@ -21,10 +21,5 @@ export class Livro extends Model<Livro> {
   })
   preco: number;
 
-  constructor(codigo, nome, preco) {
-    super();
-    this.codigo = codigo;
-    this.nome = nome;
-    this.preco = preco;
-  }
+ 
 }

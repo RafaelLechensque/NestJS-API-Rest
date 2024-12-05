@@ -1,36 +1,41 @@
-/* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { Livro } from './livro.model';
-import { LivrosService } from './livros.service';
+import { LivrosService } from "./livros.service";
+
 
 @Controller('livros')
 export class LivrosController {
-  constructor(private livrosService: LivrosService){
+    constructor(private livrosService: LivrosService) {
 
-  }
+    }
 
-  @Get()
-  obterTodos(): Livro[] {
-    return this.livrosService.obterTodos();
-  }
 
-  @Get(':id')
-  obterUm(@Param() params): Livro {
-      return this.livrosService.obterUm(params.id);
-  }
+    @Get()
+    async obterTodos(): Promise<Livro[]> {
+        return this.livrosService.obterTodos();
+    }
 
-  @Post()
-  criar(@Body() livro: Livro) {
-    this.livrosService.criar(livro);
-  }
 
-  @Put()
-  alterar(@Body() livro: Livro): Livro {
-    return this.livrosService.alterar(livro);
-  }
+    @Get(':id')
+    async obterUm(@Param() params): Promise<Livro> {
+        return this.livrosService.obterUm(params.id);
+    }
 
-  @Delete(':id')
-  apagar(@Param() params) {
-    this.livrosService.apagar(params.id);
-  }
+
+    @Post()
+    async criar(@Body() livro: Livro) {
+        this.livrosService.criar(livro);
+    }
+
+
+    @Put()
+    async alterar(@Body() livro: Livro): Promise<[number, Livro[]]> {
+        return this.livrosService.alterar(livro);
+    }
+
+
+    @Delete(':id')
+    async apagar(@Param() params) {
+        this.livrosService.apagar(params.id);
+    }
 }
